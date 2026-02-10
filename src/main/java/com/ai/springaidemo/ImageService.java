@@ -17,6 +17,7 @@ public class ImageService {
     public ImageResponse generateImage(String prompt) {
         return stabilityAiImageModel.call(new ImagePrompt(prompt, StabilityAiImageOptions.builder()
                 .width(640)
+                .N(1)
                 .height(1536)
                 .build()));
     }
