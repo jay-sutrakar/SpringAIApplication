@@ -5,7 +5,7 @@ function ImageGeneratorComponent () {
     const [imgSrc, setImageSrc] = useState(null)
     const generateImage = async () => {
         try {
-            const response = await fetch('http://localhost:8080/generate-image?prompt=dog-image')
+            const response = await fetch(`http://localhost:8080/generate-image?prompt=${prompt}`)
             console.log(response);
             const blob = await response.blob()
             const url = URL.createObjectURL(blob)
