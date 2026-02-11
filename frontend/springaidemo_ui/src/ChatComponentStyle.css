@@ -73,3 +73,53 @@
   resize: vertical;
   box-sizing: border-box;
 }
+
+/* Add these to your existing CSS files or create LoadingSpinner.css */
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  gap: 16px;
+  color: #94a3b8;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #334155;
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-spinner.chat {
+  border-top-color: #10b981; /* Green for chat */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.loading-dots {
+  display: inline-block;
+  overflow: hidden;
+  width: 1.2em;
+  height: 1em;
+  vertical-align: -0.1em;
+  background: linear-gradient(currentColor 20%, transparent 0%) no-repeat;
+  background-size: 1.2em 1em;
+  animation: dots 1.4s steps(4) infinite;
+}
+
+@keyframes dots {
+  to { background-position: 1.2em 0; }
+}

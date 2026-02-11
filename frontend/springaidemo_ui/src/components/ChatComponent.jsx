@@ -3,11 +3,13 @@ import '../ChatComponentStyle.css'
 function ChatComponent() {
     const [prompt, setPrompt] = useState('')
     const [aiResponse, setAIResponse] = useState('')
+    const [inProgress, setInProgress] = useState(false)
     const fetchAIResponse = async () => {
         const payload = {
             'prompt': prompt
         }
         try {
+            setInProgress(true)
             const response = await fetch(`http://localhost:8080/ask-ai`, {
                 method: 'POST',
                 headers: {
@@ -16,10 +18,11 @@ function ChatComponent() {
                 body: JSON.stringify(payload)
             });
             const text = await response.text()
-            console.log(text)
             setAIResponse(text)
+            setInProgress(false)
         } catch (error) {
             console.log(error)
+            setInProgress(false)
         }
 
     }
@@ -36,17 +39,27 @@ function ChatComponent() {
                     placeholder="Enter your message here !"
                     onChange={(e) => changeHandler(e.target.value)}
                 />
-                <button className="chat-button" onClick={fetchAIResponse}>
+                <button className="chat-button" onClick={fetchAIResponse} disabled={inProgress}>
                     Send
                 </button>
             </div>
+            {inProgress ? <div className="loading-container">
+                <div className="loading-spinner loading-spinner-chat"></div>
+                <div>
+                    AI is thinking...
+                    <span className="loading-dots"></span>
+                </div>
+            </div> :
+                <textarea
+                    className="chat-response"
+                    defaultValue={aiResponse}
+                    readOnly
+                    disabled={inProgress}
+                />
+            }
 
-            <textarea
-                className="chat-response"
-                defaultValue={aiResponse}
-                readOnly
-            />
         </div>
+
 
     )
 }
