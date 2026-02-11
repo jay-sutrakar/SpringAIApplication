@@ -1,6 +1,6 @@
 import { useState } from "react"
-
-function ChatComponent () {
+import '../ChatComponentStyle.css'
+function ChatComponent() {
     const [prompt, setPrompt] = useState('')
     const [aiResponse, setAIResponse] = useState('')
     const fetchAIResponse = async () => {
@@ -10,7 +10,7 @@ function ChatComponent () {
         try {
             const response = await fetch(`http://localhost:8080/ask-ai`, {
                 method: 'POST',
-                headers : {
+                headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(payload)
@@ -18,27 +18,36 @@ function ChatComponent () {
             const text = await response.text()
             console.log(text)
             setAIResponse(text)
-        } catch(error) {
+        } catch (error) {
             console.log(error)
         }
-     
+
     }
     const changeHandler = (value) => {
-        setPrompt(value)   
+        setPrompt(value)
     }
     return (
-        <div>
-            <h2>Talk to AI</h2>
-            <input
-                value={prompt}
-                placeholder="Enter your message here !"
-                onChange={(e) => changeHandler(e.target.value)}
-            />
-            <button onClick={fetchAIResponse}>Send</button>
+        <div className="chat-container">
+            <h2 className="chat-title">Talk to AI</h2>
+            <div className="chat-input-row">
+                <input
+                    className="chat-input"
+                    value={prompt}
+                    placeholder="Enter your message here !"
+                    onChange={(e) => changeHandler(e.target.value)}
+                />
+                <button className="chat-button" onClick={fetchAIResponse}>
+                    Send
+                </button>
+            </div>
+
             <textarea
+                className="chat-response"
                 defaultValue={aiResponse}
+                readOnly
             />
         </div>
+
     )
 }
 export default ChatComponent

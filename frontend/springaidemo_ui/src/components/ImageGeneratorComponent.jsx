@@ -1,6 +1,7 @@
 import { useState } from "react";
+import '../ImageComponentStyle.css'
 
-function ImageGeneratorComponent () {
+function ImageGeneratorComponent() {
     const [prompt, setPrompt] = useState('')
     const [imgSrc, setImageSrc] = useState(null)
     const generateImage = async () => {
@@ -13,22 +14,36 @@ function ImageGeneratorComponent () {
         } catch (error) {
             console.error(error)
         }
-    } 
-   return (
-    <div>
-        <h2>Image Generator</h2>
-        <input
-            type='text'
-            onChange={e => setPrompt(e.target.value)}
-            value={prompt}
-            placeholder="Enter the prompt to generate image."
-        />
-        <button onClick={generateImage}>Generate Image</button>
-        <div>
-            <img src={imgSrc}/>
+    }
+    return (
+        <div className="image-gen-container">
+            <h2 className="image-gen-title">Image Generator</h2>
+
+            <div className="image-gen-input-row">
+                <input
+                    className="image-gen-input"
+                    type="text"
+                    onChange={(e) => setPrompt(e.target.value)}
+                    value={prompt}
+                    placeholder="Enter the prompt to generate image."
+                />
+                <button className="image-gen-button" onClick={generateImage}>
+                    Generate Image
+                </button>
+            </div>
+
+            <div className="image-gen-output">
+                {imgSrc ? (
+                    <img src={imgSrc} alt="Generated" className="image-gen-img" />
+                ) : (
+                    <div className="image-gen-placeholder">
+                        Generated image will appear here
+                    </div>
+                )}
+            </div>
         </div>
-    </div>
-   )
+
+    )
 }
 
 export default ImageGeneratorComponent;
