@@ -37,3 +37,4 @@ out/
 .vscode/
 
 web/src/main/resources/application.properties
+mcp-server/src/main/resources/application.yaml
