@@ -22,10 +22,12 @@ public class AIController {
 
     private final ChatService chatService;
     private final ImageService imageService;
+    private final MCPService mcpService;
 
-    public AIController(ChatService chatService, ImageService imageService) {
+    public AIController(ChatService chatService, ImageService imageService, MCPService mcpService) {
         this.chatService = chatService;
         this.imageService = imageService;
+        this.mcpService = mcpService;
     }
 
     @PostMapping("ask-ai")
@@ -49,5 +51,10 @@ public class AIController {
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(imageBytes);
+    }
+
+    @GetMapping(path = "/mcp/chat")
+    public String chat() {
+        return mcpService.getResponse();
     }
 }

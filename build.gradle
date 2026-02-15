@@ -29,6 +29,7 @@ dependencies {
 	implementation 'org.springframework.ai:spring-ai-starter-model-stability-ai'
 	implementation 'org.springframework.ai:spring-ai-advisors-vector-store'
 	implementation 'org.springframework.ai:spring-ai-starter-model-ollama'
+	implementation 'org.springframework.ai:spring-ai-starter-mcp-client'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	implementation 'com.google.code.gson:gson:2.13.2'
