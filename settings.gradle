@@ -1,1 +1,4 @@
 rootProject.name = 'springaidemo'
+
+include 'web'
+include 'mcp-server'
