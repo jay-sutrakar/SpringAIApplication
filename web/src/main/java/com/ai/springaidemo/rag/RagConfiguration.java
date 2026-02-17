@@ -8,7 +8,6 @@ import org.springframework.ai.ollama.OllamaEmbeddingModel;
 import org.springframework.ai.reader.TextReader;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,7 +46,7 @@ public class RagConfiguration {
     }
 
     private File getVectorFileStore() {
-        Path path = Paths.get("src", "main", "resources", "data");
+        Path path = Paths.get("web","src", "main", "resources", "data");
         String absolutePath = path.toFile().getAbsolutePath() + "/" + vectorStoreName;
         return new File(absolutePath);
     }

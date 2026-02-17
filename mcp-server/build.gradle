@@ -10,12 +10,19 @@ version = '0.0.1-SNAPSHOT'
 repositories {
     mavenCentral()
 }
-
+ext {
+    set('springAiVersion', "2.0.0-M2")
+}
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.springframework.ai:spring-ai-starter-mcp-server-webmvc'
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
+    }
 }
 
 test {

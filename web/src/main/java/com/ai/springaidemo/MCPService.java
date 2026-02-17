@@ -27,7 +27,7 @@ public class MCPService {
 
 
     public String getResponse() {
-        return chatClient.prompt("What are Dan Vega's latest youtube videos")
+        return chatClient.prompt("Can you tell me the weather of london ?")
                 .call()
                 .content();
     }
