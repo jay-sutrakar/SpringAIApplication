@@ -10,7 +10,7 @@ function ChatComponent() {
         }
         try {
             setInProgress(true)
-            const response = await fetch(`http://localhost:8080/ask-ai`, {
+            const response = await fetch(`http://localhost:7070/ask-ai`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -24,7 +24,6 @@ function ChatComponent() {
             console.log(error)
             setInProgress(false)
         }
-
     }
     const changeHandler = (value) => {
         setPrompt(value)

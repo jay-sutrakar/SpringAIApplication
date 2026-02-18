@@ -36,12 +36,15 @@ services:
       context: .
       dockerfile: web/Dockerfile
     container_name: backend
+    volumes:
+      - vector-data:/app/data
     ports:
       - "7070:7070"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - MCP_SERVER_URL=http://mcp-server:8081
       - OLLAMA_BASE_URL=http://ollama:11434
+      - VECTOR_STORE_PATH=/app/data
     depends_on:
       - mcp-server
       - ollama
@@ -67,6 +70,7 @@ services:
 volumes:
   ollama-data:
     driver: local
+  vector-data:
 
 networks:
   app-network:

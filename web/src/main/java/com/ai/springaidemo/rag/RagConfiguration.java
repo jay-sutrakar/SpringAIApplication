@@ -3,7 +3,6 @@ package com.ai.springaidemo.rag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.document.Document;
-import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.ollama.OllamaEmbeddingModel;
 import org.springframework.ai.reader.TextReader;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
@@ -14,6 +13,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -46,8 +47,22 @@ public class RagConfiguration {
     }
 
     private File getVectorFileStore() {
-        Path path = Paths.get("web","src", "main", "resources", "data");
-        String absolutePath = path.toFile().getAbsolutePath() + "/" + vectorStoreName;
-        return new File(absolutePath);
+        // Read from environment variable or use default
+        String dataDir = System.getenv().getOrDefault(
+                "VECTOR_STORE_PATH",
+                "web/src/main/resources/data"  // Default for local
+        );
+
+        Path path = Paths.get(dataDir, vectorStoreName);
+
+        // Create directory if doesn't exist
+        try {
+            Files.createDirectories(path.getParent());
+        } catch (IOException e) {
+            throw new RuntimeException("Cannot create vector store directory: " + path.getParent(), e);
+        }
+
+        return path.toFile();
     }
+
 }
